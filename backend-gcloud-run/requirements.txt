@@ -1,0 +1,10 @@
+flask
+flask-cors
+firebase-admin
+requests
+bcrypt
+stripe
+google-auth
+requests
+PyJWT
+python-dotenv

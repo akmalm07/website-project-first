@@ -1,0 +1,449 @@
+:root {
+  --accent-color: #00aaff;
+  --background-light: #f9f9f9;
+  --background-dark: #fff;
+  --text-color: #111;
+  --font-main: 'Montserrat', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background: var(--background-light);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.vault-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: black;
+}
+
+.vault-scene video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.5s ease-out;
+  pointer-events: none;
+}
+
+.account-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.account-button {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--background-dark);
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.account-button:hover {
+  background-color: #00d9c6;
+}
+
+.account-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+  display: none;
+  flex-direction: column;
+  z-index: 12000;
+  font-family: var(--font-heading);
+}
+
+.account-menu[aria-hidden="false"] {
+  display: flex;
+}
+
+.account-menu-item {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.account-menu-item:hover {
+  background-color: var(--accent-color);
+  color: var(--background-dark);
+  border-radius: 4px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  justify-content: space-between;
+  background: var(--background-dark);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--accent-color);
+  user-select: none;
+}
+
+main {
+  padding-top: 56px;
+  flex: 1 0 auto;
+}
+
+/* HERO FEATURED VIDEO */
+
+.hero {
+  position: relative;
+  width: 100vw;
+  max-height: 90vh;
+  overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-light);
+  flex-direction: column;
+  text-align: center;
+  box-shadow: inset 0 -4rem 8rem -4rem rgba(0, 0, 0, 0.15);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 12px;
+}
+
+.featured-content {
+  position: relative;
+  max-width: 720px;
+  margin-bottom: 1rem;
+  z-index: 10;
+  color: var(--text-color);
+}
+
+.featured-content h1 {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.featured-content p {
+  font-size: 1.25rem;
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.hero video {
+  width: 50vw;
+  height: auto;
+  background-color: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  object-fit: contain;
+}
+
+.hero video:hover:not(.fullscreen) {
+  transform: scale(1.05);
+}
+
+.hero video.fullscreen {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  z-index: 10000 !important;
+  cursor: default !important;
+}
+
+.hero.fullscreen-active .overlay,
+.hero.fullscreen-active .featured-content {
+  display: none;
+}
+
+#exitFullscreenBtn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--accent-color);
+  border: none;
+  color: var(--background-dark);
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 11000;
+  display: none;
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(0, 170, 255, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+#exitFullscreenBtn:hover {
+  background: #008fcc;
+}
+
+/* VIDEO ROWS */
+
+.video-section {
+  padding: 2rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-row {
+  margin-bottom: 2.5rem;
+}
+
+.video-row h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.video-cards {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-behavior: smooth;
+}
+
+.video-cards::-webkit-scrollbar {
+  height: 8px;
+}
+.video-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+.video-cards::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+.video-cards:empty::before {
+  content: 'No videos available';
+  font-size: 1rem;
+  color: #888;
+  padding: 1rem;
+}
+
+.video-row + .video-row {
+  margin-top: 2rem;
+}
+.video-card {
+  flex: 1 1 calc(25% - 16px);
+  max-width: calc(25% - 16px);
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  margin: 0.5rem;
+  margin-left: 0;
+  height: 200px;
+  overflow: hidden;
+  background: var(--background-dark);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  transform: translateY(10px) scale(1);
+  animation: fadeInUp 0.4s ease forwards;
+
+  box-sizing: border-box;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+}
+
+.video-card > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.video-card:hover {
+  transform: translateY(5px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.video-card img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.video-card video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
+  background: #000;
+}
+
+
+.video-card .video-info {
+  position: absolute;
+  color:#fff;
+  font-weight: bold;
+  bottom: 0;
+  left: 0;
+  padding: 1rem 1rem;
+  font-size: 0.95rem;
+  color: white;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
+
+}
+
+.video-card:hover .video-info {
+  background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+
+.video-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.video-card {
+
+}
+
+video:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: contain !important;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .video-card {
+    flex: 1 1 calc(50% - 16px); /* 2 cards per row on medium screens */
+    max-width: calc(50% - 16px);
+  }
+}
+
+@media (max-width: 600px) {
+  .video-card {
+    flex: 1 1 100%; /* 1 card per row on small screens */
+    max-width: 100%;
+  }
+}
+
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    padding: 1rem;
+  }
+
+  .featured-content h1 {
+    font-size: 2rem;
+  }
+
+  .featured-content p {
+    font-size: 1rem;
+  }
+
+  .hero video {
+    width: 90vw;
+  }
+
+  .video-card {
+    width: 150px;
+  }
+
+  .account-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  #exitFullscreenBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

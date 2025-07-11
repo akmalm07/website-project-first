@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logout - No.Licence</title>
+  <link rel="stylesheet" href="exclusive_content_page.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">No.Licence</div>
+  </header>
+
+  <main style="display: flex; justify-content: center; align-items: center; height: 80vh; flex-direction: column;">
+    <h1>You have been logged out.</h1>
+    <a href="index.html" style="padding: 0.8rem; background: var(--accent-color); border: none; border-radius: 4px; color: var(--background-dark); font-weight: bold; text-decoration: none;">Go to Home</a>
+  </main>
+  <script>
+    function clear() {
+    localStorage.clear();
+    }
+
+    clear();
+  </script>
+  <footer>
+    <p>© 2025 no.licence. All rights reserved.</p>
+  </footer>
+</body>
+</html>

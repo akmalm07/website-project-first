@@ -1,0 +1,221 @@
+@keyframes flyFromTop {
+  0% {
+      transform: translateY(-50vh);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.modal {
+  --primary-color: #00ffe7;
+  --accent-color: #ffffff;
+  --background-color: #0d0d0d;
+  --modal-bg: #121212;
+  --input-bg: #1a1a1a;
+  --input-border: #333;
+  --text-color: #fff;
+  --black: #000000;
+
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: flyFromTop 0.5s ease-in-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  overflow: auto; 
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--modal-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  width: 90%;
+  max-width: 400px;
+  margin: 2rem auto; 
+  max-height: 90%; 
+  overflow-y: auto;
+  text-align: center;
+  position: relative; 
+}
+
+
+.modal-divider {
+  margin: 1rem 0;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.glow-white {
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--text-color);
+}
+
+.modal .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  cursor: pointer;
+  z-index: 10; 
+}
+
+.modal .main-form input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal .modal-sign-up-lnk {
+    font-size: 1rem;    
+}
+
+.modal .modal-sign-up-lnk a {
+    color: var(--primary-color);
+}
+
+
+.modal .main-btn {
+  background-color: var(--accent-color);
+  color: var(--black);
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal .main-btn:hover {
+  background-color: var(--primary-color);
+}
+
+
+.modal .google-btn {
+  background-color: var(--accent-color);
+  color: var(--black);
+  font-weight: bold;
+  border: none;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0.75rem;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1vh;
+}
+
+.modal .google-btn img {
+  display: inline-block;
+  height: 2rem;
+  width: auto;
+  margin: 0;
+  margin-left: 3px;
+  transform: translateY(-8px);
+  position: absolute;
+}
+
+.modal .google-btn:hover {
+  background-color: var(--primary-color);
+}
+
+.modal .password-input-container {
+    position: relative; 
+    display: flex; 
+    align-items: center;
+}
+
+.modal .password-input-container input[type="password"],
+.modal .password-input-container input[type="text"] {
+
+}
+
+.modal .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    outline: none; 
+}
+
+.modal .toggle-password img {
+    display: inline-block;
+    height: 1rem;
+    width: auto;
+    margin: 0;
+}
+@media (min-width: 481px) and (max-width: 600px) {
+    .modal-content {
+        max-width: 450px;
+    }
+}
+
+/* Adjust for smaller widths */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 80%; 
+        max-width: none; 
+        padding: 1.5rem;
+        margin-left: auto;
+        margin-right: auto  ;
+    }
+
+    .modal .main-form input {
+        margin: 0.75rem 0;
+        font-size: 0.9rem;
+    }
+
+    .modal .main-btn,
+    .modal .google-btn {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .modal .close-btn {
+        font-size: 1.5rem;
+        top: 8px;
+        right: 12px;
+    }
+
+}
+
+@media (max-height: 680px) {
+    .modal {
+        align-items: flex-start; 
+    }
+}

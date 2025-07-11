@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Video Test</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #addVideoForm {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        #addVideoForm label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        #addVideoForm input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #addVideoForm button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #addVideoForm button:hover {
+            background-color: #0056b3;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="addVideoForm">
+        <h2>Add New Video</h2>
+        <form id="videoForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="gcsUrl">GCS Video URL:</label>
+            <input type="text" id="gcsUrl" name="gcsUrl" required>
+
+            <label for="gcsPosterUrl">GCS Poster URL:</label>
+            <input type="text" id="gcsPosterUrl" name="gcsPosterUrl" >
+
+            <label for="authUsername">Authorized Username:</label>
+            <input type="text" id="authUsername" name="authUsername" required value="admin">
+
+            <label for="authPasscode">Authorized Passcode:</label>
+            <input type="text" id="authPasscode" name="authPasscode" required value="password">
+
+            <label for="authSecret">Authorized Secret:</label>
+            <input type="text" id="authSecret" name="authSecret" required value="secret123">
+
+            <button type="submit">Add Video</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+
+        const BACKEND_URL = 'https://no-licence-user-db-manager-runner-83470708869.us-central1.run.app';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoForm = document.getElementById('videoForm');
+            const messageDiv = document.getElementById('message');
+
+            videoForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const title = document.getElementById('title').value;
+                const gcsUrl = document.getElementById('gcsUrl').value;
+                const gcsPosterUrl = document.getElementById('gcsPosterUrl').value;
+                const authUsername = document.getElementById('authUsername').value;
+                const authPasscode = document.getElementById('authPasscode').value;
+                const authSecret = document.getElementById('authSecret').value;
+
+                const videoData = {
+                    title: title,
+                    gcsUrl: gcsUrl,
+                    gcsPosterUrl: gcsPosterUrl,
+                    username: authUsername,
+                    passcode: authPasscode,
+                    secret: authSecret
+                };
+
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/videos`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(videoData)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        messageDiv.textContent = 'Video added successfully!';
+                        messageDiv.className = 'success';
+                        videoForm.reset();
+                    } else {
+                        messageDiv.textContent = `Error adding video: ${data.error || 'Something went wrong.'}`;
+                        messageDiv.className = 'error';
+                    }
+                } catch (error) {
+                    console.error('Error sending video data:', error);
+                    messageDiv.textContent = 'Error sending data to the server.';
+                    messageDiv.className = 'error';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

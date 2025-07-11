@@ -1,0 +1,101 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.egg-info/
+*.eggs/
+dist/
+build/
+__pycache__/
+pip-wheel-metadata/
+.env
+.venv/
+secret/
+env/
+venv/
+.pytest_cache/
+.idea/
+*.log
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# Pylint
+pylint-report.txt
+pylint-global.rc
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# === Web Development ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+dist/
+build/
+.env.local
+.env.*.local
+.cache/
+.next/
+out/
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# === VS Code ===
+.vscode/
+*.code-workspace
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Secrets and Configs ===
+.env
+*.secret
+*.key
+*.pem
+*.crt
+*.cert
+*.sqlite3
+*.db
+config.json
+secrets.json
+settings.py
+
+# === Git ===
+*.orig
+*.rej
+
+# Optional: lock files for language environments
+Pipfile.lock
+poetry.lock
+requirements.lock

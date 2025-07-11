@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Login Callback</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; }
+    .message { margin-top: 2rem; font-size: 1.2rem; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Logging you in...</h1>
+  <div id="message" class="message"></div>
+
+  <script>
+    const BACKEND_URL = '';
+    
+    function parseHashParams(hash) {
+      const params = {};
+      hash.replace(/^#/, '').split('&').forEach(kv => {
+        const [key, val] = kv.split('=');
+        if (key) params[key] = decodeURIComponent(val);
+      });
+      return params;
+    }
+
+    async function authenticateWithBackend(idToken) {
+      try {
+        const res = await fetch(`${BACKEND_URL}/users/auth/google_login`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+
+            
+          },
+          body: JSON.stringify(
+            { idToken }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userEmail', data.email);
+          localStorage.setItem('userId', data.userId);
+          const subscribed = data.subscribed;
+
+          document.getElementById('message').textContent = 'Login successful! Redirecting...';
+          document.getElementById('message').classList.add('success');
+
+          if (!subscribed)
+          {
+            if (window.opener && !window.opener.closed) {
+              window.opener.location.href = '/checkout.html';
+            }
+          }
+          else
+          {
+            if (window.opener && !window.opener.closed) {
+              window.opener.location.href = '/exclusive_content_page.html';
+            }
+          }
+
+
+          setTimeout(() => window.close(), 1500);
+
+        } else {
+          const errorMsg = data.error || 'Unknown error';
+          document.getElementById('message').textContent = 'Backend Login Failed: ' + errorMsg;
+          document.getElementById('message').classList.add('error');
+        }
+      } catch (error) {
+        document.getElementById('message').textContent = 'Network or backend error occurred.';
+        document.getElementById('message').classList.add('error');
+        console.error('Backend error:', error);
+      }
+    }
+
+    (function() {
+      const params = parseHashParams(window.location.hash);
+      const idToken = params.id_token;
+
+      if (!idToken) {
+        document.getElementById('message').textContent = 'ID token not found in URL. Login failed.';
+        document.getElementById('message').classList.add('error');
+        return;
+      }
+
+      authenticateWithBackend(idToken);
+    })();
+  </script>
+</body>
+</html>

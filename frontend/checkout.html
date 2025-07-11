@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe - $5/month</title>
+  <link rel="stylesheet" href="checkout.css" />
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+
+
+
+  <div class="subscription-container">
+    <div class="card">
+          <div id="loopingVideoContainer">
+
+    <div class="resize-handle bottom-right"></div>
+    </div>
+
+        <div id="loopingVideoContainer">
+          <video id="loopingVideo" autoplay loop muted playsinline>
+            <source src="img/fancy_animation.mov">
+            Your browser does not support the video tag.
+          </video>
+
+    </div>
+      
+      <div class="card-price-box">$9.99/month<span class="subtext"> + tax</span></div>
+      <form id="payment-form">
+
+        
+        <div class="input-group">
+          <!--<input id="cardholder-name" class="stripe-element" type="text" required placeholder="Cardholder Name"/>
+          <div id="card-number" class="stripe-element"></div>
+          <div id="card-expiry" class="stripe-element"></div>
+          <div id="card-cvc" class="stripe-element"></div>
+        </div>-->
+      
+<script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
+            
+        <button type="submit" class="card-subscribe-btn" id="payment-button">Subscribe</button>
+      </form>
+      
+      <!--
+      <div class="subtext">or</div>
+
+      <div class="alt-payments">
+        <button id="paypal-button" class="paypal-btn alt-btn">Pay with <img loading="lazy" src="img/paypal-logo.png" alt="paypal"></button>
+        <button id="apple-pay-button" class="apple-btn alt-btn">Pay with <img loading="lazy" src="img/apple-pay-logo.png" alt="apple pay"></button>
+      </div>-->
+    </div>
+  </div>
+
+  <div id="password-notification" class="notification">
+    <p id="notification-message"></p>
+</div>
+
+    <script src="checkout.js"></script>
+</body>
+</html>

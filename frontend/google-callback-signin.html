@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Sign-In Callback</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; }
+    .message { margin-top: 2rem; font-size: 1.2rem; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Signing you in...</h1>
+  <div id="message" class="message"></div>
+
+  <script>
+    const BACKEND_URL = 'https://no-licence-user-db-manager-runner-83470708869.us-central1.run.app';
+
+    // Helper to parse the URL hash fragment into an object
+    function parseHashParams(hash) {
+      const params = {};
+      hash.replace(/^#/, '').split('&').forEach(kv => {
+        const [key, val] = kv.split('=');
+        if (key) params[key] = decodeURIComponent(val);
+      });
+      return params;
+    }
+
+    async function authenticateWithBackend(idToken) {
+      try {
+        const res = await fetch(`${BACKEND_URL}/users/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        });
+
+        const data = await res.json();
+        
+        console.log(data.authToken);
+        
+        if (res.ok) {
+          // Save token locally
+          localStorage.setItem('authToken', data.authToken);
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('userName', data.name);
+          localStorage.setItem('userEmail', data.email);
+          localStorage.setItem("authProvider", "google");
+          
+
+          document.getElementById('message').textContent = 'Successfully signed in! Redirecting...';
+          document.getElementById('message').classList.add('success');
+
+          if (window.opener && !window.opener.closed) {
+            window.opener.location.href = '/checkout.html';
+          }
+
+          // Close this popup after short delay
+          setTimeout(() => window.close(), 1500);
+
+        } else {
+          const errorMsg = data.error || 'Unknown error';
+          document.getElementById('message').textContent = 'Backend Authentication Failed: ' + errorMsg;
+          document.getElementById('message').classList.add('error');
+        }
+      } catch (error) {
+        document.getElementById('message').textContent = 'Network or backend error occurred.';
+        document.getElementById('message').classList.add('error');
+        console.error('Backend error:', error);
+      }
+    }
+
+    (function() {
+      const params = parseHashParams(window.location.hash);
+
+      // Google OAuth returns id_token and/or access_token in the URL hash
+      const idToken = params.id_token;
+
+      if (!idToken) {
+        document.getElementById('message').textContent = 'ID token not found in URL. Sign-in failed.';
+        document.getElementById('message').classList.add('error');
+        return;
+      }
+
+      // Send the id_token to backend to authenticate
+      authenticateWithBackend(idToken);
+    })();
+  </script>
+</body>
+</html>

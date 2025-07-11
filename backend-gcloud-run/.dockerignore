@@ -1,0 +1,12 @@
+.git
+__pycache__
+
+*.pyc
+*.bat
+.venv/
+.idea/
+Scripts/
+.git/
+
+test.py
+jwt_util.py

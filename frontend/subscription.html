@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Subscribe</title>
+    <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="subscription.css" />
+        
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://apis.google.com https://www.gstatic.com https://accounts.google.com 'unsafe-inline' 'unsafe-eval';">
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta name="google-signin-client_id" content="83470708869-jp3k1ajdp0n3jqvi7gv1t37715ukijmg.apps.googleusercontent.com">
+</head>
+<body>
+
+
+        <div class="load-scene" id="load-intro-scene">
+        <video autoplay loop muted>
+            <source src="img/load-vid.mov">
+        </video>
+    </div>
+  <!-- Google Identity Services: Button and auto init -->
+
+
+  <section class="subscription-container">
+      <p class="tilt glow tilt-left">Exclusive</p>
+      <p class="tilt glow tilt-right">Premium</p>
+      
+      <div class="card">
+        <h1 class="card-title glow">Join the Vault</h1>
+        <p class="card-description">Get exclusive content. Loyalty always rewarded.</p>
+        <div class="card-price-box">
+            <span class="card-price">$5</span>
+            <span class="card-period">/month</span>
+        </div>
+        <button class="card-join-button" id="open-modal">Join Vault</button>
+      </div>
+      
+      <div class="modal" id="modal-content">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2>Sign In</h2>
+            <form class="main-form" id="signin-form">
+                <input id="name-input" type="text" placeholder="Name" required />
+                <input id="email-input" type="email" placeholder="Email" required />
+                <div class="password-input-container">
+                  <input id="password-input" type="password" placeholder="Password" required />
+                  <button type="button" id="toggle-password" class="toggle-password">
+                    <img id="eye-icon" src="img/eye-closed.png" alt="Toggle Password">
+                  </button>
+                </div>
+                <button type="submit" class="main-btn">Sign Up</button>
+            </form>
+            <!--
+            <div class="modal-divider">or</div>
+            <button id="custom-google-btn" class="google-btn">Continue with Google <img src="img/google-logo.png"></button>
+
+-->
+                   <p class="modal-sign-up-lnk">Already have an account? Log in <a href="index.html"  id="autoClickLoginLink">here</a></p>
+        </div>
+      </div>
+
+      <div id="notification" class="notification">
+        <p id="notification-message"></p>
+      </div>
+  </section>
+
+  <script src="modal.js"></script>
+  <script src="sign-in.js" defer></script>
+  <script src="subscription-effects.js"></script>
+</body>
+</html>
